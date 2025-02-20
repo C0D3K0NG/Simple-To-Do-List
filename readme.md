@@ -4,7 +4,7 @@
 
 <img src="https://img.shields.io/badge/C-Project-00599C?style=for-the-badge&logo=c&logoColor=white&logoWidth=40" 
      alt="C Logo" 
-     style="height: 30px; width: auto;">
+     style="height: 10px; width: auto;">
 <img src="https://img.shields.io/badge/Open%20Source-✓-brightgreen" alt="Open Source">
 
 </div>
