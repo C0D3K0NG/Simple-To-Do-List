@@ -3,93 +3,181 @@
 #include <string.h>
 
 #define MAX_TODOS 50
+#define FILE_NAME "todos.txt"
 
 typedef struct {
-    char description[100];
-    int completed;
+  char description[500];
+  int completed;
 } Todo;
 
 // Function prototypes
 void add_todo(Todo *todos, int *count);
 void view_todos(Todo *todos, int count);
-// TODO: Add prototypes for delete_todo and mark_complete
+void delete_todo(Todo *todos, int *count);
+void mark_complete(Todo *todos, int count);
+void save_todos(Todo *todos, int count);
+void load_todos(Todo *todos, int *count);
 
 int main() {
-    Todo todos[MAX_TODOS];
-    int count = 0;
-    int choice;
-    
-    while(1) {
-        printf("\nTodo Manager\n");
-        printf("1. Add Todo\n");
-        printf("2. View Todos\n");
-        printf("3. Delete Todo\n");
-        printf("4. Mark Complete\n");
-        printf("5. Exit\n");
-        printf("Enter choice: ");
-        
-        // TODO: Add input validation
-        if(scanf("%d", &choice) != 1) {
-            printf("Invalid input!\n");
-            while(getchar() != '\n'); // Clear input buffer
-            continue;
-        }
-        
-        switch(choice) {
-            case 1:
-                add_todo(todos, &count);
-                break;
-            case 2:
-                view_todos(todos, count);
-                break;
-            case 3:
-                // TODO: Implement delete function
-                printf("Delete function not implemented yet!\n");
-                break;
-            case 4:
-                // TODO: Implement mark complete
-                printf("Mark complete not implemented yet!\n");
-                break;
-            case 5:
-                exit(0);
-            default:
-                printf("Invalid choice!\n");
-        }
+  Todo todos[MAX_TODOS];
+  int count = 0;
+  int choice;
+
+  load_todos(todos, &count);
+
+  while (1) {
+    printf("\nTodo Manager\n");
+    printf("1. Add Todo\n");
+    printf("2. View Todos\n");
+    printf("3. Delete Todo\n");
+    printf("4. Mark Complete\n");
+    printf("5. Save and Exit\n");
+    printf("Enter choice: ");
+
+    if (scanf("%d", &choice) != 1) {
+      printf("Invalid input! Please enter a number.\n");
+      while (getchar() != '\n')
+        ; // Clear input buffer
+      continue;
     }
-    return 0;
+
+    switch (choice) {
+    case 1:
+      add_todo(todos, &count);
+      break;
+    case 2:
+      view_todos(todos, count);
+      break;
+    case 3:
+      delete_todo(todos, &count);
+      break;
+    case 4:
+      mark_complete(todos, count);
+      break;
+    case 5:
+      save_todos(todos, count);
+      printf("Exiting...\n");
+      exit(0);
+    default:
+      printf("Invalid choice! Please try again.\n");
+    }
+  }
+  return 0;
 }
 
+// Function to add a todo
 void add_todo(Todo *todos, int *count) {
-    if(*count >= MAX_TODOS) {
-        printf("Todo list full!\n");
-        return;
-    }
-    
-    printf("Enter todo description: ");
-    // TODO: Fix buffer overflow vulnerability
-    scanf(" %[^\n]", todos[*count].description);
-    todos[*count].completed = 0;
-    (*count)++;
+  if (*count >= MAX_TODOS) {
+    printf("Todo list is full!\n");
+    return;
+  }
+
+  printf("Enter todo description: ");
+  getchar(); // Clear buffer
+  fgets(todos[*count].description, sizeof(todos[*count].description), stdin);
+  todos[*count].description[strcspn(todos[*count].description, "\n")] =
+      0; // Remove newline
+  todos[*count].completed = 0;
+  (*count)++;
+
+  printf("Todo added successfully!\n");
 }
 
+// Function to view todos
 void view_todos(Todo *todos, int count) {
-    printf("\nCurrent Todos:\n");
-    if(count == 0) {
-        printf("No todos found!\n");
-        return;
-    }
-    
-    // TODO: Add numbering and completion status
-    for(int i = 0; i < count; i++) {
-        printf("%d. %s [%s]\n", 
-               i+1,
-               todos[i].description,
-               todos[i].completed ? "DONE" : "TODO");
-    }
+  printf("\nCurrent Todos:\n");
+  if (count == 0) {
+    printf("No todos found!\n");
+    return;
+  }
+
+  for (int i = 0; i < count; i++) {
+    printf("%d. %s [%s]\n", i + 1, todos[i].description,
+           todos[i].completed ? "DONE" : "TODO");
+  }
 }
 
-// TODO: Implement delete_todo function
-// TODO: Implement mark_complete function
-// TODO: Add file saving/loading functionality
-// TODO: Add input validation for all user inputs
-// TODO: Add error handling for edge cases
+void delete_todo(Todo *todos, int *count) {
+  if (*count == 0) {
+    printf("No todos to delete!\n");
+    return;
+  }
+
+  int index;
+  printf("Enter the number of the todo to delete: ");
+  if (scanf("%d", &index) != 1 || index < 1 || index > *count) {
+    printf("Invalid input! Please enter a valid number.\n");
+    while (getchar() != '\n')
+      ; // Clear input buffer
+    return;
+  }
+
+  for (int i = index - 1; i < *count - 1; i++) {
+    todos[i] = todos[i + 1];
+  }
+
+  (*count)--;
+  printf("Todo deleted successfully!\n");
+}
+
+void mark_complete(Todo *todos, int count) {
+  if (count == 0) {
+    printf("No todos available!\n");
+    return;
+  }
+
+  int index;
+  printf("Enter the number of the todo to mark as complete: ");
+  if (scanf("%d", &index) != 1 || index < 1 || index > count) {
+    printf("Invalid input! Please enter a valid number.\n");
+    while (getchar() != '\n')
+      ; // Clear input buffer
+    return;
+  }
+
+  todos[index - 1].completed = 1;
+  printf("Todo [%d] marked as complete!\n", index);
+}
+
+void save_todos(Todo *todos, int count) {
+  FILE *file = fopen(FILE_NAME, "w");
+  if (file == NULL) {
+    printf("Error saving todos!\n");
+    return;
+  }
+
+  for (int i = 0; i < count; i++) {
+    fprintf(file, "%s,%d\n", todos[i].description, todos[i].completed);
+  }
+
+  fclose(file);
+  printf("Todos saved successfully!\n");
+}
+
+void load_todos(Todo *todos, int *count) {
+  FILE *file = fopen(FILE_NAME, "r");
+  if (file == NULL) {
+    printf("No existing todos found.\n");
+    return;
+  }
+
+  char line[220];
+  while (fgets(line, sizeof(line), file)) {
+    char *token = strtok(line, ",");
+    if (token != NULL) {
+      strncpy(todos[*count].description, token,
+              sizeof(todos[*count].description) - 1);
+      todos[*count].description[sizeof(todos[*count].description) - 1] =
+          '\0'; // Ensure null termination
+
+      token = strtok(NULL, ",");
+      if (token != NULL) {
+        todos[*count].completed = atoi(token);
+        (*count)++;
+      }
+    }
+  }
+
+  fclose(file);
+  printf("Todos loaded successfully!\n");
+}

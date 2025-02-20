@@ -3,8 +3,8 @@
 # 🚀 Todo Manager - Open Source Contribution Project
 
 <img src="![Static Badge](https://img.shields.io/badge/C%20Language-black?style=for-the-badge&logo=C&logoColor=%2300B3E0&labelColor=white&color=%2300B3E0)
-" 
-     alt="C Logo" 
+"
+     alt="C Logo"
      style="height: 20px; width: auto;">
 <img src="https://img.shields.io/badge/Open%20Source-✓-brightgreen" alt="Open Source">
 
@@ -46,13 +46,14 @@
 🔧 Create unit tests<br>
 🔧 Add category system<br>
 🔧 Implement search functionality<br>
+
 </div>
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0;">
   <div style="padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
     <h3>🛠️ Build Instructions</h3>
-    <pre><code>gcc -o todo_manager todo.c
-./todo_manager</code></pre>
+    <pre><code>make
+./tasks</code></pre>
   </div>
 
   <div style="padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
@@ -94,6 +95,7 @@
 <p>Ready to contribute? Check our <a href="CONTRIBUTING.md" style="color: #1a73e8; text-decoration: none;">Contribution Guide</a> for detailed instructions!</p>
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#YOUR_REPO_URL)
+
 </div>
 
 <hr style="border: 0.5px solid #ddd; margin: 30px 0;">
