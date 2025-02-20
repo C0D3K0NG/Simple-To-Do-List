@@ -2,7 +2,9 @@
   
 # 🚀 Todo Manager - Open Source Contribution Project
 
-<img src="https://img.shields.io/badge/C-Project-00599C?style=for-the-badge&logo=c&logoColor=white&logoWidth=30" alt="C Logo">
+<img src="https://img.shields.io/badge/C-Project-00599C?style=for-the-badge&logo=c&logoColor=white&logoWidth=40" 
+     alt="C Logo" 
+     style="height: 50px; width: auto;">
 <img src="https://img.shields.io/badge/Open%20Source-✓-brightgreen" alt="Open Source">
 
 </div>
