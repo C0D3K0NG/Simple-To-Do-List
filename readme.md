@@ -2,10 +2,13 @@
   
 # 🚀 Todo Manager - Open Source Contribution Project
 
-<img src="![Static Badge](https://img.shields.io/badge/C%20Language-black?style=for-the-badge&logo=C&logoColor=%2300B3E0&labelColor=white&color=%2300B3E0)
-" 
+<img src="https://img.shields.io/badge/C%20Language-black?style=for-the-badge&logo=C&logoColor=%2300B3E0&labelColor=white&color=%2300B3E0" 
      alt="C Logo" 
      style="height: 20px; width: auto;">
+<img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white" 
+     alt="VS CODE Logo" 
+     style="height: 20px; width: auto;">
+     
 <img src="https://img.shields.io/badge/Open%20Source-✓-brightgreen" alt="Open Source">
 
 </div>
